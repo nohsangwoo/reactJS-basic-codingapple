@@ -14,6 +14,7 @@ type contentsType = {
 
 const DataList = ({ contents, setContents, setModalContents }: props) => {
   const [isModalOn, setIsModalOn] = useState<boolean>(true);
+  const [compareIndex, setCompareIndex] = useState<number>(-1);
   const onLikeCheck = (data: any, index: number) => {
     setContents((prev: any) => {
       let copied: any = [];
@@ -29,12 +30,17 @@ const DataList = ({ contents, setContents, setModalContents }: props) => {
     });
   };
 
-  const onSetModalContents = (data: contentsType) => {
-    if (!isModalOn) {
+  const onSetModalContents = (data: contentsType, index: number) => {
+    const compareResult = compareIndex === index;
+    if (!compareResult) {
+      setModalContents(data);
+    } else if (!isModalOn) {
       setModalContents(null);
     } else {
       setModalContents(data);
     }
+    setCompareIndex(index);
+
     setIsModalOn(prev => !prev);
   };
 
@@ -55,7 +61,9 @@ const DataList = ({ contents, setContents, setModalContents }: props) => {
             </div>
             <div className="bottomInList">
               <p>{data.date}</p>
-              <button onClick={() => onSetModalContents(data)}>Detail</button>
+              <button onClick={() => onSetModalContents(data, index)}>
+                Detail
+              </button>
             </div>
             <hr />
           </div>

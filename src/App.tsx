@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { relative } from 'path';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { convertToObject } from 'typescript';
 import './App.css';
 import logo from './logo.svg';
@@ -22,6 +22,8 @@ function App() {
   const [modalContents, setModalContents] =
     useState<contentsTypes | null>(null);
 
+  const inputContentsRef = useRef<HTMLInputElement | null>(null);
+
   // deep copy 예시
   // const copyObj = (obj: any) => {
   //   var copy: any = {};
@@ -34,7 +36,20 @@ function App() {
   //   }
   // };
 
-  console.log(inputText);
+  const onPushContent = (e: any) => {
+    e.preventDefault();
+
+    const newContent = {
+      title: inputText,
+      date: String(new Date()),
+      likes: 0,
+    };
+    let result = [...contents, newContent];
+    setContents(result);
+
+    setInputText('');
+    inputContentsRef?.current?.focus();
+  };
 
   return (
     <div className="App">
@@ -63,10 +78,11 @@ function App() {
           setModalContents={setModalContents}
         />
       )}
-      <div>
+      <form>
         <input
+          ref={inputContentsRef}
           type="text"
-          // value={inputText}
+          value={inputText}
           onChange={e => {
             // console.log(e.target.value);
             setInputText(e.target.value);
@@ -75,7 +91,8 @@ function App() {
           placeholder="plz enter the some text"
         />
         <div>input: {inputText}</div>
-      </div>
+        <button onClick={e => onPushContent(e)}>저장</button>
+      </form>
     </div>
   );
 }

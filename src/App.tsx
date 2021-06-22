@@ -12,6 +12,7 @@ function App() {
     date: string;
     likes: number;
   };
+  const [inputText, setInputText] = useState<string>('');
   const [contents, setContents] = useState<contentsTypes[]>([
     { title: '남자 코트 추천', date: '2월 17일', likes: 0 },
     { title: '강남 우동 맛집', date: '2월 18일', likes: 1 },
@@ -32,6 +33,8 @@ function App() {
   //     }
   //   }
   // };
+
+  console.log(inputText);
 
   return (
     <div className="App">
@@ -60,6 +63,19 @@ function App() {
           setModalContents={setModalContents}
         />
       )}
+      <div>
+        <input
+          type="text"
+          // value={inputText}
+          onChange={e => {
+            // console.log(e.target.value);
+            setInputText(e.target.value);
+            // setInputText(e.target.value);
+          }}
+          placeholder="plz enter the some text"
+        />
+        <div>input: {inputText}</div>
+      </div>
     </div>
   );
 }

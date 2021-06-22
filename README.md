@@ -15,3 +15,5 @@
 # map 사용
 
 # props사용
+
+# input data 끌어와 쓰기

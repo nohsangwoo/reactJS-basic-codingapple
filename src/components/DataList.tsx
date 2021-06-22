@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState } from 'react';
 
 type props = {
   contents: any;
@@ -13,6 +13,7 @@ type contentsType = {
 };
 
 const DataList = ({ contents, setContents, setModalContents }: props) => {
+  const [isModalOn, setIsModalOn] = useState<boolean>(true);
   const onLikeCheck = (data: any, index: number) => {
     setContents((prev: any) => {
       let copied: any = [];
@@ -29,7 +30,12 @@ const DataList = ({ contents, setContents, setModalContents }: props) => {
   };
 
   const onSetModalContents = (data: contentsType) => {
-    setModalContents(data);
+    if (!isModalOn) {
+      setModalContents(null);
+    } else {
+      setModalContents(data);
+    }
+    setIsModalOn(prev => !prev);
   };
 
   return (
@@ -59,4 +65,4 @@ const DataList = ({ contents, setContents, setModalContents }: props) => {
   );
 };
 
-export default memo(DataList);
+export default DataList;

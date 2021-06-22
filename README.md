@@ -11,3 +11,7 @@
 # component의 module화
 
 # modal 기능의 예시
+
+# map 사용
+
+# props사용

@@ -29,6 +29,12 @@ body {
   padding-right: 20px;
 }
 
+.bottomInList {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

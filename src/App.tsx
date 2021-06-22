@@ -9,14 +9,17 @@ import DataList from './components/DataList';
 function App() {
   type contentsTypes = {
     title: string;
+    date: string;
     likes: number;
   };
-  let [contents, setContents] = useState<contentsTypes[]>([
-    { title: '남자 코트 추천', likes: 0 },
-    { title: '강남 우동 맛집', likes: 1 },
-    { title: '여자 코트 추천', likes: 2 },
-    { title: '강남 짜장 맛집', likes: 3 },
+  const [contents, setContents] = useState<contentsTypes[]>([
+    { title: '남자 코트 추천', date: '2월 17일', likes: 0 },
+    { title: '강남 우동 맛집', date: '2월 18일', likes: 1 },
+    { title: '여자 코트 추천', date: '2월 19일', likes: 2 },
+    { title: '강남 짜장 맛집', date: '2월 20일', likes: 3 },
   ]);
+  const [modalContents, setModalContents] =
+    useState<contentsTypes | null>(null);
 
   // deep copy 예시
   // const copyObj = (obj: any) => {
@@ -46,8 +49,17 @@ function App() {
       >
         button
       </button>
-      <DataList contents={contents} setContents={setContents} />
-      <Modal />
+      <DataList
+        contents={contents}
+        setContents={setContents}
+        setModalContents={setModalContents}
+      />
+      {modalContents && (
+        <Modal
+          modalContents={modalContents}
+          setModalContents={setModalContents}
+        />
+      )}
     </div>
   );
 }

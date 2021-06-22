@@ -3,9 +3,16 @@ import React, { memo } from 'react';
 type props = {
   contents: any;
   setContents: any;
+  setModalContents: any;
 };
 
-const DataList = ({ contents, setContents }: props) => {
+type contentsType = {
+  title: string;
+  date: string;
+  likes: number;
+};
+
+const DataList = ({ contents, setContents, setModalContents }: props) => {
   const onLikeCheck = (data: any, index: number) => {
     setContents((prev: any) => {
       let copied: any = [];
@@ -20,9 +27,14 @@ const DataList = ({ contents, setContents }: props) => {
       return result;
     });
   };
+
+  const onSetModalContents = (data: contentsType) => {
+    setModalContents(data);
+  };
+
   return (
     <>
-      {contents.map((data: { title: string; likes: number }, index: number) => {
+      {contents.map((data: contentsType, index: number) => {
         return (
           <div className="list" key={index}>
             <div className="title">
@@ -35,8 +47,10 @@ const DataList = ({ contents, setContents }: props) => {
               </span>
               <div className="align">{data.likes}</div>
             </div>
-
-            <p>2월 17일 발</p>
+            <div className="bottomInList">
+              <p>{data.date}</p>
+              <button onClick={() => onSetModalContents(data)}>Detail</button>
+            </div>
             <hr />
           </div>
         );
